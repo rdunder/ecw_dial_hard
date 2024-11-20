@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApp", "MauiApp\MauiApp.csproj", "{BF96B5CE-8C00-4678-9F86-54CC4C99ACFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcwMauiBlazorHybrid", "EcwMauiBlazorHybrid\EcwMauiBlazorHybrid.csproj", "{C95F0CC5-1C04-4954-8025-73F5E94C8950}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcwConsoleApp", "EcwConsoleApp\EcwConsoleApp.csproj", "{F0E36872-0F17-4ADD-B170-13549E2A0DA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF96B5CE-8C00-4678-9F86-54CC4C99ACFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF96B5CE-8C00-4678-9F86-54CC4C99ACFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF96B5CE-8C00-4678-9F86-54CC4C99ACFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF96B5CE-8C00-4678-9F86-54CC4C99ACFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C95F0CC5-1C04-4954-8025-73F5E94C8950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C95F0CC5-1C04-4954-8025-73F5E94C8950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C95F0CC5-1C04-4954-8025-73F5E94C8950}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C95F0CC5-1C04-4954-8025-73F5E94C8950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C95F0CC5-1C04-4954-8025-73F5E94C8950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0E36872-0F17-4ADD-B170-13549E2A0DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0E36872-0F17-4ADD-B170-13549E2A0DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0E36872-0F17-4ADD-B170-13549E2A0DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0E36872-0F17-4ADD-B170-13549E2A0DA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
