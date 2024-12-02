@@ -31,8 +31,8 @@ MenuService menuService = new MenuService(new List<IMenuCommand>
 while (true)
 {
     Console.Clear();
-    Console.WriteLine("Welcome to the To Do App of the year!\n");
-    Console.WriteLine("________________________________________\n");
+    Console.WriteLine("Welcome to the App of the year!\n");
+    Console.WriteLine("___Its___Time___To___Dial___Hard___\n");
 
     menuService.ShowMenu();
 
