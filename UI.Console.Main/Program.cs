@@ -1,8 +1,41 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Lib.Main.Core.Interfaces;
+using Lib.Main.Infrastructure.Repositories;
 using Lib.Main.Services.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using UI.Cli.Main.Interfaces;
+using UI.Cli.Main.Services;
 
-Console.WriteLine("Hello, World!");
+
+var host = Host.CreateDefaultBuilder()
+    .ConfigureServices((context, services) =>
+    {
+        services.AddSingleton<IUserRepository, UserJsonRepository>();
+        services.AddSingleton<UserService>();
+    })
+    .Build();
+
+var userService = host.Services.GetService<UserService>();
+if (userService != null)
+    Console.WriteLine(userService);
+
+MenuService menuService = new MenuService(new List<IMenuCommand>
+{
+    new CommandGet(userService),
+    new CommandPost(userService),
+    new CommandPut(userService),
+    new CommandDelete(userService)
+});
 
 
-UserService userService = new();
-userService.Print();
+while (true)
+{
+    Console.Clear();
+    Console.WriteLine("Welcome to the To Do App of the year!\n");
+    Console.WriteLine("________________________________________\n");
+
+    menuService.ShowMenu();
+
+    if (!menuService.ProcessMenuSelection(Console.ReadKey(true))) break;
+}
+

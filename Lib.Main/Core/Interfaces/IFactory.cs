@@ -2,7 +2,7 @@
 
 namespace Lib.Main.Core.Interfaces;
 
-internal interface IFactory<TFormModel, TEntity, TModel>
+public interface IFactory<TFormModel, TEntity, TModel>
 {
     public TFormModel Create();
     public TEntity Create(TFormModel formModel);

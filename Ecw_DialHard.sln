@@ -5,7 +5,7 @@ VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Main", "Lib.Main\Lib.Main.csproj", "{9D0E8570-85BE-4475-B763-8F7FCAFE78BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Console.Main", "UI.Console.Main\UI.Console.Main.csproj", "{BB1368BE-EA3E-4A25-B8CB-6FD1505637A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Cli.Main", "UI.Console.Main\UI.Cli.Main.csproj", "{BB1368BE-EA3E-4A25-B8CB-6FD1505637A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Main.Tests", "Lib.Main.Tests\Lib.Main.Tests.csproj", "{771AD534-7CBD-4C5F-A088-BA9B6FB4A32F}"
 EndProject

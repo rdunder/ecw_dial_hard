@@ -5,7 +5,7 @@ using Lib.Main.Core.Models;
 
 namespace Lib.Main.Infrastructure.Repositories;
 
-internal class UserJsonRepository : IUserRepository
+public class UserJsonRepository : IUserRepository
 {
     public void Add(UserEntity entity)
     {

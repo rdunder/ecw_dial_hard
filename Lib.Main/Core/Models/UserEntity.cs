@@ -2,7 +2,7 @@
 
 namespace Lib.Main.Core.Models;
 
-internal class UserEntity
+public class UserEntity
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; } = null!;

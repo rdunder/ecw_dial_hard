@@ -2,7 +2,7 @@
 
 namespace Lib.Main.Core.Interfaces;
 
-internal interface IRepository<TEntity, TModel>
+public interface IRepository<TEntity, TModel>
 {
     public void Add(TEntity entity);
     public IEnumerable<TModel> Get();
