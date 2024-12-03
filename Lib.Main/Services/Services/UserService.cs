@@ -12,15 +12,9 @@ public class UserService
 {
     private readonly IUserRepository _userRepository;
     private readonly UserFactory _userFactory;
-    private readonly FormValidationService _formValidationService;
+    private readonly FormValidationService _formValidationService;   
 
-    //  THIS HAS TO BE IN REPOSITORY TO FOLLOW THE VISUAL CHART
-    private string _fileName = "Database.json";
-    private string _basePath = AppContext.BaseDirectory;
-    private string PATH;
-    //  ________________________________________________________
-
-    public readonly IEnumerable<UserModel> userList;
+    public IEnumerable<UserModel> userList;
 
 
     public UserService(IUserRepository userRepository)
@@ -28,13 +22,7 @@ public class UserService
         _userRepository = userRepository;
         _userFactory = new UserFactory();
         _formValidationService = new FormValidationService();
-
-        PATH = Path.Combine(AppContext.BaseDirectory, "Data");
-        if (!Directory.Exists(PATH))
-        {
-            Directory.CreateDirectory(PATH);
-        }
-        
+        userList = _userRepository.Get();
     }
 
 
@@ -57,6 +45,7 @@ public class UserService
 
     public IEnumerable<UserModel> Get()
     {
+        userList = _userRepository.Get();
         return userList;
     }
     public UserModel Get(Guid id)

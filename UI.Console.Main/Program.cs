@@ -15,9 +15,7 @@ var host = Host.CreateDefaultBuilder()
     })
     .Build();
 
-var userService = host.Services.GetService<UserService>();
-if (userService != null)
-    Console.WriteLine(userService);
+var userService = host.Services.GetService<UserService>() ?? new UserService(new UserJsonRepository());
 
 MenuService menuService = new MenuService(new List<IMenuCommand>
 {
@@ -31,6 +29,15 @@ MenuService menuService = new MenuService(new List<IMenuCommand>
 while (true)
 {
     Console.Clear();
+
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("********************************************************");
+    Console.WriteLine("OBS! this app is saving a file called Database.json in");
+    Console.WriteLine($"{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DialHard")}");
+    Console.WriteLine("********************************************************\n\n");
+    Console.ForegroundColor = ConsoleColor.White;
+
+
     Console.WriteLine("Welcome to the App of the year!\n");
     Console.WriteLine("___Its___Time___To___Dial___Hard___\n");
 

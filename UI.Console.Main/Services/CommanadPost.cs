@@ -22,16 +22,16 @@ internal class CommandPost : IMenuCommand
         Console.WriteLine("Time to add a user, here we go...");
         
         Console.Write("(Required!) First Name: ");
-        formModel.FirstName = Console.ReadLine();
+        formModel.FirstName = Console.ReadLine()!;
 
         Console.Write("(Required!) Last Name: ");
-        formModel.LastName = Console.ReadLine();
+        formModel.LastName = Console.ReadLine()!;
 
         Console.Write("(Required!) Email: ");
-        formModel.Email = Console.ReadLine();
+        formModel.Email = Console.ReadLine()!;
 
         Console.Write("(Required!) Phone: ");
-        formModel.PhoneNumber = Console.ReadLine();
+        formModel.PhoneNumber = Console.ReadLine()!;
 
         Console.Write("Adress: ");
         formModel.Adress = Console.ReadLine() ?? "";
@@ -48,15 +48,19 @@ internal class CommandPost : IMenuCommand
         if (validations != null)
         {
             Console.WriteLine("\n");
+            Console.ForegroundColor = ConsoleColor.Red;
             foreach (var validation in validations)
             {
                 Console.WriteLine(validation);
             }
             Console.WriteLine("\n");
+            Console.ForegroundColor = ConsoleColor.White;
         }
         else
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nThanks for the entry!");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
