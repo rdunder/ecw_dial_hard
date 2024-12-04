@@ -1,5 +1,6 @@
 ﻿using Lib.Main.Core.Interfaces;
 using Lib.Main.Infrastructure.Repositories;
+using Lib.Main.Services.Factories;
 using Lib.Main.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,19 +12,14 @@ var host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) =>
     {
         services.AddSingleton<IUserRepository, UserJsonRepository>();
-        services.AddSingleton<UserService>();
+        services.AddTransient<IUserFactory, UserFactory>();
+        services.AddSingleton<IUserService, UserService>();
+
+        services.AddSingleton<MenuService>();
     })
     .Build();
 
-var userService = host.Services.GetService<UserService>() ?? new UserService(new UserJsonRepository());
-
-MenuService menuService = new MenuService(new List<IMenuCommand>
-{
-    new CommandGet(userService),
-    new CommandPost(userService),
-    new CommandPut(userService),
-    new CommandDelete(userService)
-});
+var menuService = host.Services.GetService<MenuService>()!;
 
 
 while (true)

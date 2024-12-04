@@ -1,4 +1,5 @@
-﻿using Lib.Main.Services.Services;
+﻿using Lib.Main.Core.Interfaces;
+using Lib.Main.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,12 @@ namespace UI.Cli.Main.Services
 {
     internal class CommandDelete : IMenuCommand
     {
+        private readonly IUserService _userService;
         public string Description => "Delete";
 
-        public CommandDelete(UserService userService)
+        public CommandDelete(IUserService userService)
         {
-            
+            _userService = userService;
         }
 
         public void Execute()

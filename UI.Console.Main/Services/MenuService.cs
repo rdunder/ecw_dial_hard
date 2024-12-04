@@ -1,5 +1,6 @@
 ﻿
 
+using Lib.Main.Core.Interfaces;
 using System;
 using UI.Cli.Main.Interfaces;
 
@@ -7,11 +8,20 @@ namespace UI.Cli.Main.Services;
 
 internal class MenuService
 {
+    private readonly IUserService _userService;
     private readonly List<IMenuCommand> _commands;
 
-    public MenuService(List<IMenuCommand> commands)
+    public MenuService(IUserService userService)
     {
-        _commands = commands;
+        _userService = userService;
+
+        _commands = new List<IMenuCommand>
+        {
+            new CommandGet(_userService),
+            new CommandPost(_userService),
+            new CommandPut(_userService),
+            new CommandDelete(_userService)
+        };
     }
 
     public void ShowMenu()

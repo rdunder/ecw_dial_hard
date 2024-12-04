@@ -5,7 +5,7 @@ using Lib.Main.Core.Models;
 
 namespace Lib.Main.Services.Factories;
 
-internal class UserFactory : IFactory<UserFormModel, UserEntity, UserModel>
+public class UserFactory : IUserFactory
 {
     public UserFormModel Create()
     {

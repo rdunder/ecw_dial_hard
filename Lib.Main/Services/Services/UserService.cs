@@ -8,19 +8,21 @@ using System.Reflection;
 
 namespace Lib.Main.Services.Services;
 
-public class UserService
+public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
-    private readonly UserFactory _userFactory;
-    private readonly FormValidationService _formValidationService;   
+    private readonly IUserFactory _userFactory;
+
+    private readonly FormValidationService _formValidationService;
 
     public IEnumerable<UserModel> UserList { get; private set; }
 
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, IUserFactory userFactory)
     {
         _userRepository = userRepository;
-        _userFactory = new UserFactory();
+        _userFactory = userFactory;
+
         _formValidationService = new FormValidationService();
         UserList = _userRepository.Get();
     }
