@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Toolkit.Hosting;
+using System.Diagnostics;
 
 namespace UI.Maui.Main
 {
@@ -43,6 +44,8 @@ namespace UI.Maui.Main
             builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
 
             return builder.Build();
+            
+
         }
     }
 }

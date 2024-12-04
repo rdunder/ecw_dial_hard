@@ -8,7 +8,7 @@ namespace UI.Maui.Main.Pages
         public MainPage(MainPageModel model)
         {
             InitializeComponent();
-            BindingContext = model;
+            BindingContext = model;           
         }
     }
 }
