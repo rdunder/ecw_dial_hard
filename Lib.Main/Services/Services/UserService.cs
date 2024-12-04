@@ -14,7 +14,7 @@ public class UserService
     private readonly UserFactory _userFactory;
     private readonly FormValidationService _formValidationService;   
 
-    public IEnumerable<UserModel> userList;
+    public IEnumerable<UserModel> UserList { get; private set; }
 
 
     public UserService(IUserRepository userRepository)
@@ -22,7 +22,7 @@ public class UserService
         _userRepository = userRepository;
         _userFactory = new UserFactory();
         _formValidationService = new FormValidationService();
-        userList = _userRepository.Get();
+        UserList = _userRepository.Get();
     }
 
 
@@ -45,8 +45,8 @@ public class UserService
 
     public IEnumerable<UserModel> Get()
     {
-        userList = _userRepository.Get();
-        return userList;
+        UserList = _userRepository.Get();
+        return UserList;
     }
     public UserModel Get(Guid id)
     {
