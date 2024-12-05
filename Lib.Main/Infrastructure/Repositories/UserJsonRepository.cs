@@ -21,6 +21,8 @@ public class UserJsonRepository : IUserRepository
 
     public UserJsonRepository()
     {
+        _users = new List<UserEntity>();
+
         _basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), _subFolder);
         if (!Directory.Exists(_basePath))
         {
@@ -34,27 +36,36 @@ public class UserJsonRepository : IUserRepository
         }
 
         _userFactory = new UserFactory();
-        UpdateJsonDatabase();
+        UpdateLocalListOfUsers();
     }
 
-    public void Add(UserEntity entity)
+    public bool Add(UserEntity entity)
     {
-        UpdateJsonDatabase();
+        UpdateLocalListOfUsers();
         _users.Add(entity);
 
-        string json = JsonSerializer.Serialize(_users);
-        File.WriteAllText(_connectionString, json);
+        try
+        {
+            string json = JsonSerializer.Serialize(_users);
+            File.WriteAllText(_connectionString, json);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }        
     }
 
-    public void Delete(UserModel model)
+    public bool Delete(UserModel model)
     {
+        return true;
     }
 
     public IEnumerable<UserModel> Get()
     {
         List<UserModel> usersReturn = new List<UserModel>();
 
-        UpdateJsonDatabase();
+        UpdateLocalListOfUsers();
        
         foreach (UserEntity entity in _users)
         {
@@ -70,18 +81,19 @@ public class UserJsonRepository : IUserRepository
         return new UserModel();
     }
 
-    public void Update(UserModel model)
+    public bool Update(UserModel model)
     {
+        return true;
     }
 
-    private void UpdateJsonDatabase()
+    private void UpdateLocalListOfUsers()
     {
         string rawData = File.ReadAllText(_connectionString);
         try
         {
             _users = JsonSerializer.Deserialize<List<UserEntity>>(rawData)!;
         }
-        catch (Exception ex)
+        catch
         {
             _users = new List<UserEntity>();
         }        

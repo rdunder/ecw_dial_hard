@@ -4,10 +4,10 @@ namespace Lib.Main.Core.Interfaces;
 
 public interface IRepository<TEntity, TModel>
 {
-    public void Add(TEntity entity);
+    public bool Add(TEntity entity);
     public IEnumerable<TModel> Get();
     public TModel Get(Guid id);
-    public void Delete(TModel model);
-    public void Update(TModel model);
+    public bool Delete(TModel model);
+    public bool Update(TModel model);
     
 }

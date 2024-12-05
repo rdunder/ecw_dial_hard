@@ -13,7 +13,7 @@ public class UserService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IUserFactory _userFactory;
 
-    private readonly FormValidationService _formValidationService;
+    private readonly IFormValidationService _formValidationService;
 
     public IEnumerable<UserModel> UserList { get; private set; }
 

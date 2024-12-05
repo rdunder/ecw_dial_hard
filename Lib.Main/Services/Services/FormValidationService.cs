@@ -1,10 +1,11 @@
 ﻿
 
+using Lib.Main.Core.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Lib.Main.Services.Services;
 
-internal class FormValidationService
+public class FormValidationService : IFormValidationService
 {
     /// <summary>
     /// Returns NULL if no errors
@@ -14,13 +15,13 @@ internal class FormValidationService
     /// <returns></returns>
     public List<ValidationResult> Validate<T>(T formModel)
     {
-        var context = new ValidationContext(formModel);
+        var context = new ValidationContext(formModel!);
         var validationResluts = new List<ValidationResult>();
 
-        if (!Validator.TryValidateObject(formModel, context, validationResluts, true))
+        if (!Validator.TryValidateObject(formModel!, context, validationResluts, true))
         {
             return validationResluts;
         }
-        return null;
+        return null!;
     }
 }

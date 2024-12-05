@@ -27,7 +27,7 @@ namespace UI.Cli.Main.Services
 
                 foreach (UserModel user in _users)
                 {
-                    Console.WriteLine($"{user.FirstName,-10}{user.LastName,-10}{user.Email,-25}{user.PhoneNumber,12}");
+                    Console.WriteLine($"{user.FirstName,-10}{user.LastName,-15}{user.Email,-25}{user.PhoneNumber,12}");
                 }
             }
             else
