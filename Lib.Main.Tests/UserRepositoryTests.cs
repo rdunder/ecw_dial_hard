@@ -14,6 +14,7 @@ public class UserRepositoryTests
     {
         //  Arrange
         var fakeEntity = new UserEntity();
+        var fakeUserList = new List<UserEntity>();
 
         //  Act
         _sut.Add(fakeEntity);
