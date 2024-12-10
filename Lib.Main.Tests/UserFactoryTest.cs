@@ -12,7 +12,7 @@ public class UserFactoryTest
 
     public UserFactoryTest()
     {
-        _userFactory = new UserFactory(); 
+        _userFactory = new UserFactory();
     }
 
 

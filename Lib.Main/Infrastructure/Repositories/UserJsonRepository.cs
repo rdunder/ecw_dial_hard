@@ -11,54 +11,51 @@ namespace Lib.Main.Infrastructure.Repositories;
 public class UserJsonRepository : IUserRepository
 {
     private readonly UserFactory _userFactory;
-
-    private readonly string _fileName = "Database.json";
-    private readonly string _subFolder = "DialHard";
-    private readonly string _basePath;
     private readonly string _connectionString;
-
     private List<UserEntity> _users;
 
-    public UserJsonRepository()
+    public UserJsonRepository(string connectionString)
     {
+        _userFactory = new UserFactory();
+        _connectionString = connectionString;
         _users = new List<UserEntity>();
 
-        _basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), _subFolder);
-        if (!Directory.Exists(_basePath))
+        var basePath = Path.GetDirectoryName(_connectionString);
+        if (!Directory.Exists(basePath) && basePath != null)
         {
-            Directory.CreateDirectory(_basePath);
+            Directory.CreateDirectory(basePath);
         }
 
-        _connectionString = Path.Combine(_basePath, _fileName);
         if (!File.Exists(_connectionString))
         {
             File.WriteAllText(_connectionString, "[]");
         }
-
-        _userFactory = new UserFactory();
+       
         UpdateLocalListOfUsers();
     }
 
-    public bool Add(UserEntity entity)
+    public void Add(UserEntity entity)
     {
         UpdateLocalListOfUsers();
         _users.Add(entity);
 
-        try
-        {
-            string json = JsonSerializer.Serialize(_users);
-            File.WriteAllText(_connectionString, json);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }        
+        UpdateJsonFile();
     }
 
     public bool Delete(UserModel model)
     {
-        return true;
+        UpdateLocalListOfUsers();
+
+        try
+        {
+            _users.RemoveAll(user => user.Id == model.Id);
+            UpdateJsonFile();
+            return true;
+        }
+        catch 
+        {
+            return false;
+        }        
     }
 
     public IEnumerable<UserModel> Get()
@@ -78,7 +75,11 @@ public class UserJsonRepository : IUserRepository
 
     public UserModel Get(Guid id)
     {
-        return new UserModel();
+        UpdateLocalListOfUsers();
+        var entity = _users.FirstOrDefault(x => x.Id == id) ?? new();
+        var user = _userFactory.Create( entity );
+
+        return user;
     }
 
     public bool Update(UserModel model)
@@ -97,5 +98,18 @@ public class UserJsonRepository : IUserRepository
         {
             _users = new List<UserEntity>();
         }        
+    }
+
+    private void UpdateJsonFile()
+    {
+        try
+        {
+            string json = JsonSerializer.Serialize(_users);
+            File.WriteAllText(_connectionString, json);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

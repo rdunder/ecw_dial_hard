@@ -8,10 +8,10 @@ namespace Lib.Main.Core.Interfaces
         IEnumerable<UserModel> UserList { get; }
 
         IEnumerable<ValidationResult> AddUser(UserFormModel formModel);
-        void DeleteUser();
+        void DeleteUser(UserModel userModel);
         IEnumerable<UserModel> Get();
         UserModel Get(Guid id);
         UserFormModel GetUserFormModel();
-        void UpdateUser();
+        IEnumerable<ValidationResult> UpdateUser(UserModel userModel, UserFormModel userFormModel);
     }
 }

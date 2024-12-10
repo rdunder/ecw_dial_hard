@@ -146,22 +146,88 @@ public class UserServiceTests
     }
 
     [Fact]
-    public void UserService_UpdateUser_ShouldReturnVoid()
+    public void UserService_UpdateUser_ShouldReturnNull()
     {
         //  Arrange
+        var formValidationServiceMOCK = new Mock<IFormValidationService>();
+        var userFactoryMOCK = new Mock<IUserFactory>();
+        var userRepositoryMOCK = new Mock<IUserRepository>();
+
+        var fakeuserModel = new UserModel();
+        var fakeEntityModel = new UserEntity();
+        var fakeUserFormModel = new UserFormModel()
+        {
+            FirstName = "FakeName",
+            LastName = "FakeName",
+            Email = "fake.email@domain.com",
+            PhoneNumber = "1234567890"
+        };
+
+        formValidationServiceMOCK
+            .Setup(x => x.Validate(fakeUserFormModel))
+            .Returns((List<ValidationResult>)null!);
+
+        userFactoryMOCK
+            .Setup(x => x.Create(fakeUserFormModel))
+            .Returns(fakeEntityModel);
+
+        var _sut = new UserService(userRepositoryMOCK.Object, userFactoryMOCK.Object);
 
         //  Act
+        var result = _sut.UpdateUser(fakeuserModel, fakeUserFormModel);
 
         //  Assert
+        Assert.Null(result);
+        userRepositoryMOCK.Verify(x => x.Add(It.IsAny<UserEntity>()), Times.Once);
+        userRepositoryMOCK.Verify(x => x.Delete(fakeuserModel), Times.Once);
+    }
+
+    [Fact]
+    public void UserService_UpdateUser_ShouldReturnValidationResults()
+    {
+        //  Arrange
+        var formValidationServiceMOCK = new Mock<IFormValidationService>();
+        var userFactoryMOCK = new Mock<IUserFactory>();
+        var userRepositoryMOCK = new Mock<IUserRepository>();
+
+        var fakeUserEntityModel = new UserEntity();
+        var fakeUserFormModel = new UserFormModel();
+        var fakeUserModel = new UserModel();
+        var fakeValidationResults = new List<ValidationResult>();
+
+        formValidationServiceMOCK
+            .Setup(x => x.Validate(fakeUserFormModel))
+            .Returns(fakeValidationResults);
+
+        userFactoryMOCK
+            .Setup(x => x.Create(It.IsAny<UserFormModel>()))
+            .Returns(fakeUserEntityModel);
+
+        var _sut = new UserService(userRepositoryMOCK.Object, userFactoryMOCK.Object);
+
+        //  Act
+        var result = _sut.UpdateUser(fakeUserModel, fakeUserFormModel);
+
+        //  Assert
+        Assert.NotNull(result);
+        userFactoryMOCK.Verify(x => x.Create(fakeUserEntityModel), Times.Never);
+        userRepositoryMOCK.Verify(x => x.Add(fakeUserEntityModel), Times.Never);
     }
 
     [Fact]
     public void UserService_DeleteUser_ShouldReturnVoid()
     {
         //  Arrange
+        var userFactoryMOCK = new Mock<IUserFactory>();
+        var userRepositoryMOCK = new Mock<IUserRepository>();
+
+        var _sut = new UserService(userRepositoryMOCK.Object, userFactoryMOCK.Object);
+        var fakeModel = new UserModel();
 
         //  Act
+        _sut.DeleteUser(fakeModel);
 
         //  Assert
+        userRepositoryMOCK.Verify(x => x.Delete(fakeModel), Times.Once);
     }
 }

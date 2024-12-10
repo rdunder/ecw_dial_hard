@@ -1,18 +1,22 @@
 ﻿using Lib.Main.Core.Interfaces;
+using Lib.Main.Core.Models;
 using Lib.Main.Infrastructure.Repositories;
+using Moq;
 
 namespace Lib.Main.Tests;
 
 public class UserRepositoryTests
 {
-    private readonly IUserRepository _sut = new UserJsonRepository();
+    private readonly IUserRepository _sut = new UserJsonRepository("dummy_connection_string");
 
     [Fact]
     public void UserJsonRepository_Add_ShouldReturnTrue()
     {
         //  Arrange
+        var fakeEntity = new UserEntity();
 
         //  Act
+        _sut.Add(fakeEntity);
 
         //  Assert
     }

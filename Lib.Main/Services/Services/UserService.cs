@@ -2,6 +2,7 @@
 
 using Lib.Main.Core.Interfaces;
 using Lib.Main.Core.Models;
+using Lib.Main.Infrastructure.Repositories;
 using Lib.Main.Services.Factories;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -12,9 +13,7 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IUserFactory _userFactory;
-
     private readonly IFormValidationService _formValidationService;
-
     public IEnumerable<UserModel> UserList { get; private set; }
 
 
@@ -55,13 +54,22 @@ public class UserService : IUserService
         return _userRepository.Get(id);
     }
 
-    public void UpdateUser()
+    public IEnumerable<ValidationResult> UpdateUser(UserModel model, UserFormModel formModel)
     {
+        var validations = _formValidationService.Validate(formModel);
+        if (validations == null || !validations.Any())
+        {
+            var userEntity = _userFactory.Create(formModel);
+            _userRepository.Add(userEntity);
+            _userRepository.Delete(model);
+            return null!;
+        }
 
+        return validations;
     }
 
-    public void DeleteUser()
+    public void DeleteUser(UserModel userModel)
     {
-
+        _userRepository.Delete(userModel);
     }
 }

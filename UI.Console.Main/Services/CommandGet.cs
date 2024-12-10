@@ -5,16 +5,11 @@ using UI.Cli.Main.Interfaces;
 
 namespace UI.Cli.Main.Services
 {
-    internal class CommandGet : IMenuCommand
+    internal class CommandGet(IUserService userService) : IMenuCommand
     {
         public string Description => "Show Contacts";
-        IEnumerable<UserModel> _users;
-        private readonly IUserService _userService;
-
-        public CommandGet(IUserService userService)
-        {
-            _userService = userService;
-        }
+        private readonly IUserService _userService = userService;
+        IEnumerable<UserModel> _users = null!;
 
         public void Execute()
         {

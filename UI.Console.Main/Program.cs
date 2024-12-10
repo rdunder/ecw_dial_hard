@@ -7,11 +7,16 @@ using Microsoft.Extensions.Hosting;
 using UI.Cli.Main.Interfaces;
 using UI.Cli.Main.Services;
 
+string connectionString = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "DialHard", "Database.json");
 
 var host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) =>
     {
-        services.AddSingleton<IUserRepository, UserJsonRepository>();
+        services.AddSingleton<IUserRepository, UserJsonRepository>(sp =>
+        {
+            var cs = connectionString;
+            return new UserJsonRepository(cs);
+        });
         services.AddTransient<IUserFactory, UserFactory>();
         services.AddSingleton<IUserService, UserService>();
 
@@ -41,4 +46,3 @@ while (true)
 
     if (!menuService.ProcessMenuSelection(Console.ReadKey(true))) break;
 }
-
